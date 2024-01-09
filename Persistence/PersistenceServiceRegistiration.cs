@@ -16,10 +16,16 @@ public static class PersistenceServiceRegistiration
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
+        //services.AddDbContext<BaseDbContext>(options =>
+        //{
+        //    options.UseInMemoryDatabase("rentacardb");
+        //});
+
         services.AddDbContext<BaseDbContext>(options =>
         {
-            options.UseInMemoryDatabase("rentacardb");
+            options.UseSqlServer(configuration.GetConnectionString("RentACar"));
         });
+
         services.AddScoped<IBrandRepository,BrandRepository>();
 
         return services;
